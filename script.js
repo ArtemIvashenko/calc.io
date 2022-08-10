@@ -18,8 +18,8 @@ bakspace(){
 updateDisplay(){
 
 this.secondValueText.innerText = this.secondValue;
-if (this.opertor !== null){
-		this.firstValueText.innerText  = this.firstValue;
+if (this.operator != null){
+		this.firstValueText.innerText  = this.firstValue +  this.operator;
 	}else {
       this.firstValueText.innerText = '';
 }
@@ -58,6 +58,7 @@ calk() {
 	}else return;
 this.secondValue = result;
 
+this.operator  =undefined;
 this.firstVale = '';
 
 }
