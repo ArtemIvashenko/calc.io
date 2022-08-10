@@ -1,62 +1,60 @@
-#calc{
-    width: 488;
-    background-color:c8bfcb;
-    height: 450;
-    padding-left: 40;
-    border-radius: 25px;
-   
-}
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Gotham Rounded, sans-serif;
+    font-weight: normal;
+  }
   
-            button{
-                background-color: brown;
-                width: 80;
-                height: 80;
-                border-radius: 5px;
-                font-size: 22;
-            }
-            input{
-                width: 420;
-                height: 50;
-                font-size: 20;
-                border-radius: 5px;
-                background-color:c8bfcb;
-                font-weight: bolder;
-                text-align: end;
+  body {
+    margin: 0;
+    padding: 0;
+    background: #c1c1c1;
+    }
+  
+    .calculator {
+      display: grid;
+      justify-content: center;
+      align-content: center;
+      min-height: 100vh;
+      grid-template-columns: repeat(4, 100px);
+      grid-template-rows: minmax(120px, auto) repeat(5, 100px);
+      }
+  
+      .calculator > button {
+        cursor: pointer;
+        font-size: 2rem;
+        border: 1px, solid #FFFFFF;
+        outline: none;
+        background-color: rbga(255, 255, 255, 0.75);
+      }
+  
+        .calculator > button:hover {
+          background-color: #a9a9a9;
+        }
+  
+     
+        .display{
+          grid-column: 1 / -1;
+          background-color: white;
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-around;
+          flex-direction: column;
+          padding: 10px;
+          word-wrap: break-word;
+          word-break: break-all;
+        }
+  
+        .display .firstValue{
+          color: grey;
+          font-size: 1.5rem;
+        }
+  
+        .display .secondValue{
+          color: black;
+          font-size: 2.5rem;
+        }
 
-            }
-            
-            .new{
-                background-color:blueviolet;
-                width: 165;
-                height: 80;
-                border-radius: 5px;
-                font-size: 25;
-            }
-            #numberclear{
-                
-                background-color:chocolate;
+	.eq {
+		background-color: green;
 
-            }
-            #numbers {
-float: left;
-display: block;
-width: 250;
-border: 1px;
-margin: 2px
-            }
-            #operators{
-                float: left;
-                display: block;
-                width: 230;
-                border: 1px;
-                margin: 2px
-            }
-            #title{
-                font-size: 18;
-                font-weight: bolder;
-                margin-left: 160px;
-            }
-            #hystory_1{
-                margin-left: 370px;
-                color :slategrey;
-            }
+}

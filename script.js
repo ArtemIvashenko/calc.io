@@ -1,85 +1,134 @@
-let displayCalc  = document.getElementById("displayCalc");
-        
-       
-        function calk(){
-          let hystory_1 = displayCalc.value;
-          
-            document.getElementById("hystory_1").innerHTML = hystory_1;
-            
-        
-            let operator = "";
-            let res = "";
-        
-            for( let i=0; i<displayCalc.value.length; i++){
-                         if (displayCalc.value[i]=="+"){
-                             operator="+";
-                            res=displayCalc.value.split(operator);
-                            displayCalc.value = parseFloat(res[0]) + parseFloat(res[1]);
-                             alert(displayCalc.value);
-                 } 
-                 else 
-                        if (displayCalc.value[i]=="-"){
-                             operator="-";
-                             res=displayCalc.value.split(operator);
-                            displayCalc.value = parseFloat(res[0]) - parseFloat(res[1]);
-                            alert(displayCalc.value);
-
-                 }
-                else 
-                        if (displayCalc.value[i]=="*"){
-                            operator="*";
-                            res=displayCalc.value.split(operator);
-                            displayCalc.value = parseFloat(res[0]) * parseFloat(res[1]);
-                            alert(displayCalc.value);
-                 }
-                else    if (displayCalc.value[i]=="/"){
-                            operator="/";
-                            res=displayCalc.value.split(operator);
-                            displayCalc.value = parseFloat(res[0]) / parseFloat(res[1]);
-                            alert(displayCalc.value);
-                 }
-                else 
-                        if (displayCalc.value[i]=="%"){
-                             operator="%";
-                            res=displayCalc.value.split(operator);
-                            displayCalc.value = parseFloat(res[0]) % parseFloat(res[1]);
-                            alert(displayCalc.value);
-
-                        }
-                    }
-       
-            
-            
-         //  displayCalc.value = eval(displayCalc.value);
-            
-        
-            document.getElementById("displayCalc").innerHTML = displayCalc.value;
-            
-            
-            }
-
-           
-function clearr(){
-    displayCalc.value = '';
-  document.getElementById("displayCalc").innerHTML = displayCalc.value;
+class Calculator{
+	constructor(firstValueText, secondValueText){
+		this.firstValueText = firstValueText;
+		this.secondValueText = secondValueText;
+		this.clear();
 }
-        
-         
-        function buttonpress(pressbtn){
-            displayCalc.value  = displayCalc.value + pressbtn;
-            document.getElementById("displayCalc").innerHTML = displayCalc.value;
-        }
-        function bakspase(){
-            displayCalc.value = displayCalc.value.slice(0,length-1);
-            document.getElementById("displayCalc").innerHTML = displayCalc.value
-        }
-        calk1.onclick = function(){
-            
-            calk();
-         }
 
-         document.addEventListener('keydown', function(event) {
-  if ( event.keyCode == 13 ) {
-    calk();
+clear (){
+    	this.secondValue = '';
+	this.firstValue = "";
+	this.operator = undefined;
+}
+
+bakspace(){
+	this.secondValue = this.secondValue.toString().slice(0,-1); 
+}
+
+updateDisplay(){
+
+this.secondValueText.innerText = this.secondValue;
+if (this.opertor !== null){
+		this.firstValueText.innerText  = this.firstValue;
+	}else {
+      this.firstValueText.innerText = '';
+}
+}
+
+
+appendNumber(number) {
+    if (number === '.' && this.secondValue.includes('.')) return
+    this.secondValue = this.secondValue.toString() + number.toString();
   }
+
+choiseOperator (operator){
+	if (this.secondValue ==='') return;
+	if (this.firstValue !=='')	{
+		this.calk();
+}
+		this.operator = operator;
+		this.firstValue = this.secondValue;
+		this.secondValue = '';
+}
+	
+calk() {
+	let result;
+	const a = parseFloat(this.firstValue);
+	const b = parseFloat(this.secondValue);
+		if ( a=== isNaN || b === isNaN) return;
+	if (this.operator ==='+'){
+		result = a+b;
+	}else if (this.operator ==='-'){
+		result = a-b;
+	} else if (this.operator ==='*'){
+		result = a*b;
+	}else if(this.operator ==='/'){
+		result = a/b;
+	
+	}else return;
+this.secondValue = result;
+
+this.firstVale = '';
+
+}
+
+
+}
+const numberbtn = document.querySelectorAll('[data-number]');
+const operatorbtn = document.querySelectorAll ('[data-operator]');
+const equalsbtn = document.querySelector ('[data-equals]');
+const allClear = document.querySelector ('[data-allclear]');
+const bakspace = document.querySelector ('[data-bakspace]');
+const firstValueText = document.querySelector ('[data-firstValue]');
+const secondValueText = document.querySelector ('[data-secondValue]');
+
+
+const calculator = new Calculator(firstValueText, secondValueText);
+       
+numberbtn.forEach(button =>{
+	button.addEventListener('click' , () => {
+		calculator.appendNumber (button.innerText);
+		calculator.updateDisplay(); 
+	});
+});
+
+operatorbtn.forEach(button =>{
+	button.addEventListener('click' , () =>{
+		calculator.choiseOperator(button.innerText);
+		calculator.updateDisplay();
+	});
+});
+
+equalsbtn.addEventListener('click' , button => {
+	calculator.calk();
+	calculator.updateDisplay();
+});
+
+allClear.addEventListener('click' , button => {
+	calculator.clear();
+	calculator.updateDisplay();
+});
+
+bakspace.addEventListener ('click' , button =>{
+	calculator.bakspace();
+	calculator.updateDisplay();
+});
+
+document.addEventListener('keydown', function (event){
+	if (event.key === 'Enter' || event.key === '='){
+		event.preventDefault();
+		calculator.calk();
+		calculator.updateDisplay();
+		}
+	if ( event.key === "Backspace" || event.key === 'Escape'){
+		 event.preventDefault();
+		calculator.bakspace();
+		calculator.updateDisplay();
+		}
+	if (event.key === '.'){
+		 event.preventDefault();
+		calculator.appendNumber(event.key);
+		calculator.updateDisplay();
+		}
+	if (event.key === '1'|| event.key === '2'|| event.key === '3'|| event.key === '4'|| event.key === '5'|| event.key === '6'|| event.key === '7'|| event.key === '8'|| event.key === '9'|| event.key === '0'){
+		 event.preventDefault();
+		calculator.appendNumber(event.key);
+		calculator.updateDisplay();
+		}
+
+	if (event.key === '+'|| event.key === '-'|| event.key === '*'|| event.key === '/'){
+		 event.preventDefault();
+		calculator.choiseOperator(event.key);
+		calculator.updateDisplay();
+		}
 });

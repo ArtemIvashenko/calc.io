@@ -1,7 +1,10 @@
+<!DOCTYPE html>
 <html>
 <head>
     <head>
 	    <link href = "style.css" rel = "stylesheet">
+ <script src = "script.js" defer> </script>
+
 
         <meta charset="utf-8">
         <title>Калькулятор</title>
@@ -12,39 +15,46 @@
 
        <div id = "calc">
             <p id = "title">Калькулятор</p>
-            <p id  = hystory_1></p>
-            <p id  = hystory_2></p>
-            <input  id = "displayCalc"/>
+ <div class="calculator">
+             <div class="display">
+            <div data-firstValue class="firstValue"></div>
+            <div data-secondValue class="secondValue"></div>
+        </div>
         
     
-        <div id="operator_btns">
-            <div id = "numbers">
-                <button id = "number"  onclick="buttonpress('7')">7</button>
-                <button  id = "number" onclick="buttonpress('8')">8</button>
-                <button  id = "number" onclick="buttonpress('9')">9</button>
-                <button  id = "number" onclick="buttonpress('4')">4</button>
-                <button  id = "number" onclick="buttonpress('5')">5</button>
-                <button  id = "number" onclick="buttonpress('6')">6</button>
-                <button  id = "number" onclick="buttonpress('1')">1</button>
-                <button  id = "number" onclick="buttonpress('2')">2</button>
-                <button  id = "number" onclick="buttonpress('3')">3</button>
-                <button  id = "number" onclick="buttonpress('0')">0</button>
+        
+            
+                <button data-number  >7</button>
+                <button data-number >8</button>
+                <button data-number >9</button>
+		
+		<button  data-operator >/</button>
+
+                <button data-number >4</button>
+
+                <button  data-number >5</button>
+                <button  data-number >6</button>
+		<button  data-operator >*</button>
+
+                <button  data-number >1</button>
+                <button  data-number >2</button>
+                <button  data-number >3</button>
+		<button  data-operator >-</button>
+
+                <button  data-number >0</button>
                 
-                <button  id = "number" onclick="buttonpress('.')">.</button>
-                <button  id = "number" onclick="buttonpress('%')">%</button>
-            </div>
-            <div id = "operators">
-                <button  id = "number" onclick="buttonpress('+')">+</button>
-                <button  id = "number" onclick="buttonpress('-')">-</button>
-                <button  id = "number" onclick="buttonpress('*')">*</button>
-                <button  id = "number" onclick="buttonpress('/')">/</button>
-               
-                <button id = "calk1" class = "new"onclick ="calk()">=</button>
-                <button id="numberclear" onclick="clearr()">С</button>
-                <button id = "numberclear"onclick ="bakspase()">CE</button>
+                <button  data-number >.</button>
                 
             
-            </div>
+            
+                             
+                <button data-equals class = "eq" >=</button>
+		<button  data-operator >+</button>
+                <button data-allclear >С</button>
+                <button  data-bakspace>CE</button>
+                
+            
+            
              
         </div>
        
@@ -52,6 +62,4 @@
     </div>
       </body>
 
-        <script src = "script.js"> </script>
-
-  </html>
+         </html>
