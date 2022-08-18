@@ -4,6 +4,7 @@ class Calculator{
         this.firstValueText = firstValueText;
 	this.secondValueText = secondValueText;
 	this.hystoryText = hystoryText;
+	this.arr = arr;
 	this.clear();
     }
 
@@ -20,8 +21,7 @@ class Calculator{
     updateDisplay(){
         this.secondValueText.innerText = this.secondValue;
         if (this.operator !== undefined){
-           // this.firstValueText.innerText  = this.firstValue +  this.operator + this.secondValue;
-	    this.hystoryText.innerText = `${this.firstValue}`+`${this.operator}`+ `${this.secondValue}`;
+	    this.hystoryText.innerText = `${this.firstValue}` + `${this.operator}` + `${this.secondValue}`;
 	    }else {
             this.firstValueText.innerText = '';
         }
@@ -30,7 +30,7 @@ class Calculator{
             }
 	
     }
-
+ 
 
     appendNumber(number) {
         if (number === '.' && this.secondValue.includes('.')) return
@@ -41,6 +41,7 @@ class Calculator{
         if (this.secondValue === '') return;
         if (this.firstValue !== ''){
             this.calk();
+            this.hystory();
         }
         this.operator = operator;
         this.firstValue = this.secondValue;
@@ -53,22 +54,55 @@ class Calculator{
         let b = parseFloat(this.secondValue);
             if ( a == isNaN || b == isNaN) return;
 	    if (this.operator === '+'){
-	        result = a+b;
+		result = a+b;	
+		this.arr.push(`${this.firstValue} ${this.operator} ${this.secondValue} = ${result} `);
 	    } else
                 if (this.operator === '-'){
 	            result = a-b;
+		    this.arr.push(`${this.firstValue} ${this.operator} ${this.secondValue} = ${result} `);
 	    } else 
                 if (this.operator === '*'){
 	            result = a*b;
+		    this.arr.push(`${this.firstValue} ${this.operator} ${this.secondValue} = ${result} `);
 	    } else 
                 if(this.operator ==='/'){
 	            result = a/b;
+		    this.arr.push(`${this.firstValue} ${this.operator} ${this.secondValue} = ${result} `);
 	    }else return;
         this.secondValue = result;
         this.operator  = undefined;
-        this.firstVale = '';
+        this.firstValue = '';
     }
 
+    hystory() {
+                  if (arr.length ===1){
+                      for (let i = 0; i<this.arr.length; i++){
+                          hystoryOperat.innerHTML += `<div hystoryOperat> ${arr[i]} </div>`;
+                      } 
+                  }else{
+                  if (arr.length ===2 ){
+                      for (let i = 1; i<this.arr.length; i++){
+                          hystoryOperat.innerHTML += `<div hystoryOperat> ${arr[i]} </div>`;
+                      }  
+                  }else{ 
+                  if (arr.length ===3){
+                      for (let i = 2; i<this.arr.length; i++){
+                         hystoryOperat.innerHTML += `<div hystoryOperat> ${arr[i]} </div>`;
+                     }
+ 
+                 }else{
+                      for (let i = 0; i<this.arr.length; i++){
+		          if (arr.length >=4){
+                          hystoryOperat.innerHTML = '';
+			  arr.shift(arr[i]);
+			  }
+                         hystoryOperat.innerHTML += `<div hystoryOperat> ${arr[i]} </div>`;
+                     }
+                   
+                 }
+                 }
+                 }
+   }
 
 }
 let numberbtn = document.querySelectorAll('[data-number]');
@@ -79,13 +113,17 @@ let bakspace = document.querySelector ('[data-bakspace]');
 let firstValueText = document.querySelector ('[data-firstValue]');
 let secondValueText = document.querySelector ('[data-secondValue]');
 let hystoryText = document.querySelector ('[hystory]');
+let arr = [];
+let hystoryOperat = document.querySelector ('[hystoryOperat]');
+
+
 
 let calculator = new Calculator(firstValueText, secondValueText);
        
 numberbtn.forEach(button =>{
     button.addEventListener('click' , () => {
         calculator.appendNumber (button.innerText);
-	calculator.updateDisplay(); 
+	calculator.updateDisplay();
 	});
 });
 
@@ -99,6 +137,7 @@ operatorbtn.forEach(button =>{
 equalsbtn.addEventListener('click' , button => {
     calculator.calk();
     calculator.updateDisplay();
+calculator.hystory();
 });
 
 allClear.addEventListener('click' , button => {
